@@ -1,3 +1,29 @@
+# usage
+## インストール
+
+```
+sudo apt install libceres-dev
+```
+
+```
+cd ~catkin_ws/src
+git clone -b ros1 https://github.com/mikeferguson/robot_calibration.git
+catkin build robot_calibration
+```
+
+## usage
+
+### キャリブレーション用姿勢,認識位置データの取得
+
+```
+cd robot_calibration/scripts
+python3 capture_poses
+```
+
+## 参考&メモ
+
+https://qiita.com/hoshianaaa/items/e18f6ce899741554e031
+
 # Robot Calibration
 
 This package offers ROS nodes. The primary one is called _calibrate_, and
