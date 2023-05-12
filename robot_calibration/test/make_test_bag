@@ -37,7 +37,7 @@ class GenerateTestBag:
         while not rospy.is_shutdown():
             print('Move arm/head to a new sample position:')
             resp = raw_input('press <enter>')
-            if string.upper(resp) == 'EXIT':
+            if str.upper(resp) == 'EXIT':
                 break
             else:
                 if self.last_state_ == None or self.last_point_ == None:
@@ -53,6 +53,12 @@ class GenerateTestBag:
                 bag.write('calibration_data', msg)
         bag.close()
             
+
+# PointStamped
+# http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/PointStamped.html
+
+# point
+# http://docs.ros.org/en/melodic/api/geometry_msgs/html/msg/Point.html
 
     def stateCb(self, msg):
         """ Callback for joint_states messages """
