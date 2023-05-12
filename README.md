@@ -24,6 +24,92 @@ python3 capture_poses
 
 https://qiita.com/hoshianaaa/items/e18f6ce899741554e031
 
+- maxwell_calibration/params/calibrate.yaml
+
+```
+base_link: base_link
+models:
+ - name: arm
+   type: chain
+   frame: arm_wrist_roll_link
+ - name: camera
+   type: camera3d
+   frame: head_camera_rgb_optical_frame
+   topic: /head_camera/depth_registered/points
+free_params:
+ - arm_shoulder_pan_joint
+ - arm_shoulder_lift_joint
+ - arm_upperarm_roll_joint
+ - arm_elbow_flex_joint
+ - arm_wrist_flex_joint
+ - arm_wrist_roll_joint
+ - head_pan_joint
+ - head_tilt_joint
+ - camera_fx
+ - camera_fy
+ - camera_cx
+ - camera_xy
+ - camera_z_offset
+ - camera_z_scaling
+free_frames:
+ - name: head_camera_rgb_joint
+   x: true
+   y: true
+   z: true
+   roll: true
+   pitch: true
+   yaw: true
+ - name: checkerboard
+   x: true
+   y: true
+   z: true
+   roll: false
+   pitch: true
+   yaw: false
+error_blocks:
+ - name: hand_eye
+   type: chain3d_to_chain3d
+   model_a: camera
+   model_b: arm
+ - name: restrict_camera
+   type: outrageous
+   param: head_camera_rgb_joint
+   joint_scale: 0.0
+   position_scale: 0.1
+   rotation_scale: 0.1
+```
+
+- capture.yaml
+
+```
+chains:
+  - name: arm
+    topic: /arm_controller/follow_joint_trajectory
+    joints:
+     - arm_lift_joint
+     - arm_shoulder_pan_joint
+     - arm_shoulder_lift_joint
+     - arm_upperarm_roll_joint
+     - arm_elbow_flex_joint
+     - arm_wrist_flex_joint
+     - arm_wrist_roll_joint
+  - name: head
+    topic: /head_controller/follow_joint_trajectory
+    joints:
+     - head_pan_joint
+     - head_tilt_joint
+duration: 5.0  # movement time between poses
+features:
+  checkerboard_finder:
+    name: robot_calibration/CheckerboardFinder
+    topic: /head_camera/depth_registered/points
+    camera_sensor_name: camera
+    chain_sensor_name: arm
+    points_x: 4
+    points_y: 5
+```
+
+
 # Robot Calibration
 
 This package offers ROS nodes. The primary one is called _calibrate_, and
