@@ -47,7 +47,7 @@ class CapturePoses:
         while not rospy.is_shutdown():
             print('Move arm/head to a new sample position:  (type "exit" to quit and save data)')
             resp = raw_input('press <enter>')
-            if string.upper(resp) == 'EXIT':
+            if str.upper(resp) == 'EXIT':
                 break
             else:
                 if self.last_state_ == None:
