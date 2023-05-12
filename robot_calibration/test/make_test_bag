@@ -8,10 +8,12 @@ import rospy
 import rosbag
 import tf
 
+from six.moves import input as raw_input
+
 from std_msgs.msg import String
 from sensor_msgs.msg import JointState
 from geometry_msgs.msg import PointStamped
-from calibration_sandbox.msg import CalibrationData
+from robot_calibration_msgs.msg import CalibrationData
 
 class GenerateTestBag:
     camera_frame_ = 'head_camera_rgb_optical_frame'

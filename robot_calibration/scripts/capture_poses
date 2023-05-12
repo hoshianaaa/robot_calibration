@@ -24,6 +24,8 @@ import string
 import rospy
 import rosbag
 
+from six.moves import input as raw_input
+
 from sensor_msgs.msg import JointState
 from robot_calibration_msgs.msg import CaptureConfig
 
